@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>To‑Do List — Vanilla JS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>To‑Do List</h1>
+      <p class="subtitle">HTML • CSS • JavaScript (LocalStorage)</p>
+    </header>
+
+    <main class="container">
+      <section aria-labelledby="add-task-title" class="card">
+        <h2 id="add-task-title">Add a new task</h2>
+        <form id="task-form" novalidate>
+          <div class="form-row">
+            <label for="task-input" class="sr-only">Task</label>
+            <input
+              id="task-input"
+              type="text"
+              placeholder="What do you need to do?"
+              required
+            />
+          </div>
+          <div class="form-row optional">
+            <label for="due-input">Due date (optional)</label>
+            <input id="due-input" type="date" />
+          </div>
+          <div class="form-row optional">
+            <label for="priority-select">Priority (optional)</label>
+            <select id="priority-select">
+              <option value="">—</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn primary">Add</button>
+            <button type="reset" class="btn ghost">Clear</button>
+          </div>
+          <p id="form-error" class="error" role="alert" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section aria-labelledby="tasks-title" class="card">
+        <div class="section-head">
+          <h2 id="tasks-title">Your tasks</h2>
+          <div class="filters">
+            <label>
+              <input type="checkbox" id="show-completed" checked />
+              Show completed
+            </label>
+            <select id="sort-select" aria-label="Sort tasks">
+              <option value="created_desc">Newest first</option>
+              <option value="created_asc">Oldest first</option>
+              <option value="due_asc">Due date ↑</option>
+              <option value="due_desc">Due date ↓</option>
+              <option value="priority_desc">Priority High→Low</option>
+              <option value="priority_asc">Priority Low→High</option>
+            </select>
+          </div>
+        </div>
+
+        <ul id="task-list" class="task-list" aria-live="polite"></ul>
+
+        <template id="task-item-template">
+          <li class="task-item">
+            <label class="checkbox-wrap">
+              <input type="checkbox" class="task-completed" />
+              <span class="checkmark" aria-hidden="true"></span>
+            </label>
+
+            <div class="task-main">
+              <div class="task-title" data-field="title"></div>
+              <div class="task-meta">
+                <span class="badge due" data-field="due"></span>
+                <span class="badge priority" data-field="priority"></span>
+              </div>
+            </div>
+
+            <div class="task-actions">
+              <button
+                class="btn small"
+                data-action="edit"
+                aria-label="Edit task"
+              >
+                Edit
+              </button>
+              <button
+                class="btn small danger"
+                data-action="delete"
+                aria-label="Delete task"
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        </template>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Built for learning • Tasks are saved in your browser</p>
+    </footer>
+
+    <dialog id="edit-dialog">
+      <form method="dialog" id="edit-form">
+        <h3>Edit task</h3>
+        <label>
+          <span>Title</span>
+          <input id="edit-title" type="text" required />
+        </label>
+        <label>
+          <span>Due date (optional)</span>
+          <input id="edit-due" type="date" />
+        </label>
+        <label>
+          <span>Priority (optional)</span>
+          <select id="edit-priority">
+            <option value="">—</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <div class="dialog-actions">
+          <button value="cancel" class="btn ghost">Cancel</button>
+          <button id="edit-save" value="default" class="btn primary">
+            Save
+          </button>
+        </div>
+        <p id="edit-error" class="error" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
